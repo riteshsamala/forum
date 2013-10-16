@@ -1,0 +1,52 @@
+<html>
+<head>
+   <title>Test forum access</title>
+</head>
+<body>
+There are two things that we need:
+<ol>
+<li>An author creates a new thread identified by problem name,
+author name, and section name.  The thread is titled by (at least) 
+the problem name.  
+The server may need to create a new forum account for the
+author, if it does not exist.
+It might be nice if the thread contains an
+initial post consisting of the problem text?
+
+<p>The URL would contain: problem name, author name, section name, and 
+initial post text.  The method would be an HTTP POST since the text may
+be long.  
+
+<li>A user is logged into the forum and directed to an existing thread.
+The URL would contain the user name, section name, problem name,
+and problem author name. 
+The server may need to create a new forum account for the
+user, if it does not exist.
+
+</ol>
+
+Currently, this only works for custom problems.  We will worry about
+published problems later.
+
+   <form method="post" action="discussion.php" >
+    <h2>Thread for new problem</h2>
+    Section: <input type="text" name="s" size="50" value=""><br>
+    Author: <input type="text" name="a" size="50" value=""><br>
+    Problem name: <input type="text" name="p" size="50" value=""><br>
+    Problem text: <input type="text" name="t" size="50" value=""><br>
+    <input type="hidden" name="action" value="new">
+    <input value="Post it"  type="submit">
+    </form>
+
+   <form method="post" action="discussion.php" >
+    <h2>Access existing thread</h2>:
+    Section: <input type="text" name="s" size="50" value=""><br>
+    User: <input type="text" name="u" size="50" value=""><br>
+    <!-- author may be empty for published problems -->
+    Author: <input type="text" name="a" size="50" value=""><br>
+    Problem name: <input type="text" name="p" size="50" value=""><br>
+    <input type="hidden" name="action" value="existing">
+    <input value="Access it"  type="submit">
+    </form>
+</body>
+</html>
