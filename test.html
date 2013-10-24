@@ -13,8 +13,8 @@ author, if it does not exist.
 It might be nice if the thread contains an
 initial post consisting of the problem text?
 
-<p>The URL would contain: problem name, author name, section name, and 
-initial post text.  The method would be an HTTP POST since the text may
+<p>The URL would contain: problem name, user (author) name, section name, and 
+initial post text.  The method would be HTTP POST since the text may
 be long.  
 
 <li>A user is logged into the forum and directed to an existing thread.
@@ -30,8 +30,8 @@ published problems later.
 
    <form method="post" action="discussion.php" >
     <h2>Thread for new problem</h2>
-    Section: <input type="text" name="s" size="50" value=""><br>
-    Author: <input type="text" name="a" size="50" value=""><br>
+    Section: <input type="text" name="s" size="50" value="test"><br>
+    Author/User: <input type="text" name="u" size="50" value=""><br>
     Problem name: <input type="text" name="p" size="50" value=""><br>
     Problem text: <input type="text" name="t" size="50" value=""><br>
     <input type="hidden" name="action" value="new">
@@ -39,8 +39,8 @@ published problems later.
     </form>
 
    <form method="post" action="discussion.php" >
-    <h2>Access existing thread</h2>:
-    Section: <input type="text" name="s" size="50" value=""><br>
+    <h2>Access existing thread</h2>
+    Section: <input type="text" name="s" size="50" value="test"><br>
     User: <input type="text" name="u" size="50" value=""><br>
     <!-- author may be empty for published problems -->
     Author: <input type="text" name="a" size="50" value=""><br>
