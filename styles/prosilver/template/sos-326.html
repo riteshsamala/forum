@@ -201,6 +201,9 @@ function addAuthor(formName){
     <input type="hidden" name="mode" value="STUDENT">
     <input type="hidden" name="section" value="sos-326">
     <input type="hidden" name="username" value="{S_USERNAME}">
+    <input type="hidden" name="forumurl" 
+           value="{BOARD_URL}viewtopic.php">
+
                    <div class="fieldgroup">
                         <label for="initial_problems">Problem Name: </label>
                         <select id="initial_problems" name="problem_id">
@@ -227,6 +230,8 @@ function addAuthor(formName){
         	   <input type="hidden" name="username" value="{S_USERNAME}">
               <input type="hidden" name="mode" value="COACHED">
               <input type="hidden" name="section" value="sos-326">
+    	      <input type="hidden" name="forumurl" 
+		     value="{BOARD_URL}viewtopic.php">
                     <div class="fieldgroup">
                         <label for="coached_problems">Problem: </label>
                         <select id="coached_problems" name="problem_id">
@@ -253,6 +258,8 @@ function addAuthor(formName){
             <h2>Additional Dragoon Problems</h2>
         	   <input type="hidden" name="username" value="{S_USERNAME}">
                    <input type="hidden" name="mode" value="STUDENT">
+		   <input type="hidden" name="forumurl"
+			  value="{BOARD_URL}viewtopic.php">
 
                     <div class="fieldgroup">
                         <label for="problem_category">Problem Category: </label>
@@ -299,6 +306,8 @@ function addAuthor(formName){
 
 		    <input type="hidden" name="username" value="{S_USERNAME}">
 		    <input type="hidden" name="mode" value="author">
+		    <input type="hidden" name="forumurl" 
+			  value="{BOARD_URL}viewtopic.php">
 
                     <div class="fieldgroup">
                         <label for="author_problem">Problem: </label>
@@ -324,6 +333,8 @@ function addAuthor(formName){
 
             <h2>Solve a custom problem</h2>
 		    <input type="hidden" name="username" value="{S_USERNAME}">
+		    <input type="hidden" name="forumurl" 
+			   value="{BOARD_URL}viewtopic.php">
 		    <input type="hidden" name="mode" value="student">
                     <input type="hidden" name="section" value="sos-326">
                     <!-- value will be overwritten by function addAuthor -->
@@ -347,6 +358,8 @@ function addAuthor(formName){
 
 
         </form>
+
+   <h2><a href="viewforum.php?f=4">Problem Discussions</a></h2>
 
 
     </div>
