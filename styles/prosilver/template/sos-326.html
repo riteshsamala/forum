@@ -11,9 +11,6 @@
     <script type="text/javascript">
         dojoConfig = {isDebug: true, parseOnLoad: true};
     </script>
-   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/dojo/1.9.1/dojo/dojo.js"></script>
-
-    <link href='//ajax.googleapis.com/ajax/libs/dojo/1.9.1/dijit/themes/claro/claro.css' rel='stylesheet' type='text/css' />
 
 
     <style type="text/css">
@@ -24,15 +21,15 @@
 
         #content {
             background-color:#C6F5F2;
-            // width:950px;
-            // min-height:450px;
+            /* width:950px;
+             min-height:450px; */
             text-align:left;
             padding:20px;
         }
 
         h2 {
-            // padding-left: 0px !important;
-            // text-align:right;
+            /* padding-left: 0px !important;
+             text-align:right; */
         }
 
         .large { font-size:22px; }
@@ -124,18 +121,18 @@ var pid=[];  // global list of the problem ids
 require(["dojo/parser","dojo/dom","dijit/registry","dijit/form/Select", 
          "dojo/request/xhr","dojo/_base/array",
          "dojo/dom-construct", 
-         "dojo/json","dojo/domReady!"],
-function(parser,dom,registry,Select,xhr,array,domConst,JSON){
+         "dojo/json","dojo/ready","dojo/domReady!"],
+function(parser,dom,registry,Select,xhr,array,domConst,JSON, ready){
     parser.parse();  // Make sure widgets are defined
 
 function addProblems(){
-    xhr("/devel/available_problems.php",{
+    xhr("/ram/available_problems.php",{
       // Script also wants "student" but we will assume
       // All solutions are shared in this class
       query: {
         // This should be gotten from the appropriate section
         // form field (or java should set that field).
-        section: "sos-326"
+        section: "sos-326-spring14"
       },
       handleAs: "json"
     }).then(function(data){
@@ -194,12 +191,12 @@ function addAuthor(formName){
 
     <div id="content">
 
-  <form action="/devel/startup.php"  onsubmit="return setMode(this);" method="POST"
+  <form action="/ram/startup.php"  onsubmit="return setMode(this);" method="POST"
         name="iniProbs" class="problem-selection-form">
        <h2>Initial Problems</h2>
 
     <input type="hidden" name="mode" value="STUDENT">
-    <input type="hidden" name="section" value="sos-326">
+    <input type="hidden" name="section" value="sos-326-spring14">
     <input type="hidden" name="username" value="{S_USERNAME}">
     <input type="hidden" name="forumurl" 
            value="{BOARD_URL}viewtopic.php">
@@ -222,14 +219,14 @@ function addAuthor(formName){
      </form>
 
 
-  <form action="/devel/startup.php" method="POST" class="problem-selection-form">
+  <form action="/ram/startup.php" method="POST" class="problem-selection-form">
           <h2>Coached problems</h2>
 
         You can use the <a href="/intro-handout.pdf">handout</a> to help you.<br>
 
         	   <input type="hidden" name="username" value="{S_USERNAME}">
               <input type="hidden" name="mode" value="COACHED">
-              <input type="hidden" name="section" value="sos-326">
+              <input type="hidden" name="section" value="sos-326-spring14">
     	      <input type="hidden" name="forumurl" 
 		     value="{BOARD_URL}viewtopic.php">
                     <div class="fieldgroup">
@@ -253,7 +250,7 @@ function addAuthor(formName){
   </form>                   
 
 
-        <form action="/devel/startup.php" method="POST" class="problem-selection-form">
+        <form action="/ram/startup.php" method="POST" class="problem-selection-form">
 
             <h2>Additional Dragoon Problems</h2>
         	   <input type="hidden" name="username" value="{S_USERNAME}">
@@ -288,7 +285,7 @@ function addAuthor(formName){
                         </select>
                     </div>
 
-                    <input type="hidden" name="section" value="sos-326">
+                    <input type="hidden" name="section" value="sos-326-spring14">
 
                     <div class="fieldgroup">
                         <button type="submit" value="Continue" class="submit">
@@ -299,12 +296,11 @@ function addAuthor(formName){
 
         </form>
 
-        <form action="/devel/startup.php" method="POST" class="problem-selection-form">
+        <form action="/ram/startup.php" method="POST" class="problem-selection-form">
 
             <h2>Author a custom problem</h2>
 
 
-		    <input type="hidden" name="username" value="{S_USERNAME}">
 		    <input type="hidden" name="mode" value="author">
 		    <input type="hidden" name="forumurl" 
 			  value="{BOARD_URL}viewtopic.php">
@@ -314,8 +310,25 @@ function addAuthor(formName){
                         <input type="text" id="author_problem" 
                             name="problem_id" onChange="javascript:this.value=this.value.toLowerCase();">
                     </div>
+                    <div class="fieldgroup">
+                        <label for="problem_author">Group ID:</label>
+                        <select id="problem_author" name="username">
+                            <option value="Group 1">Group 1</option>
+                            <option value="Group 2">Group 2</option>
+                            <option value="Group 3">Group 3</option>
+                            <option value="Group 4">Group 4</option>
+                            <option value="Group 5">Group 5</option>
+                            <option value="Group 6">Group 6</option>
+                            <option value="Group 7">Group 7</option>
+                            <option value="Group 8">Group 8</option>
+                            <option value="Group 9">Group 9</option>
+                            <option value="Group 10">Group 10</option>
+                            <option value="{S_USERNAME}">Use my personal username</option>                            
+                        </select>
+                      </div>
 
-                    <input type="hidden" name="section" value="sos-326">
+
+                    <input type="hidden" name="section" value="sos-326-spring14">
 
                     <div class="fieldgroup">
                         <button type="submit" value="Continue" class="submit">
@@ -326,7 +339,7 @@ function addAuthor(formName){
 
         </form>
 
-        <form action="/devel/startup.php" method="POST" 
+        <form action="/ram/startup.php" method="POST" 
 	      name="custom_student"
               onsubmit="return addAuthor('custom_student');" 
 	      class="problem-selection-form">
@@ -336,7 +349,7 @@ function addAuthor(formName){
 		    <input type="hidden" name="forumurl" 
 			   value="{BOARD_URL}viewtopic.php">
 		    <input type="hidden" name="mode" value="student">
-                    <input type="hidden" name="section" value="sos-326">
+                    <input type="hidden" name="section" value="sos-326-spring14">
                     <!-- value will be overwritten by function addAuthor -->
                     <input type="hidden" name="author" value="">
 
@@ -365,8 +378,6 @@ function addAuthor(formName){
     </div>
 
 </div>
-
-</p>
 </div>
 
 <!-- INCLUDE jumpbox.html -->

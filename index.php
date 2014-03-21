@@ -16,7 +16,7 @@ if ($user->data['user_id'] == ANONYMOUS)
     login_box('', $user->lang['LOGIN']);
   } 
 
-page_header('SOS 326: Sustainable Ecosystems');
+page_header('SOS 326: Sustainable Ecosystems - Spring 14');
 
 $template->set_filenames(array(
 			       'body' => 'sos-326.html',
