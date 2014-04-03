@@ -71,6 +71,19 @@ $hilit_words	= request_var('hilit', '', true);
 error_log("hi, problem name == $problem", 0);
 if(!$topic_id && $problem != ''){
 	error_log("problem name detected, beginning process to post/open thread",0);
+		if($author == 'Water Challenges'){
+			redirect('viewforum.php?f=7',false);
+		} else if($author == 'Water Visions'){
+			redirect('viewforum.php?f=8',false);
+		}else if($author == 'Park Visions'){
+			redirect('viewforum.php?f=9',false);
+		}else if($author == 'Park Challenges'){
+			redirect('viewforum.php?f=10',false);
+		}else if($author == 'Transit Visions'){
+			redirect('viewforum.php?f=11',false);
+		}else if($author == 'Transit Challenges'){
+			redirect('viewforum.php?f=12',false);
+		}
 		$sql = "SELECT topic_id FROM topicIds 
 				WHERE username = '$author' AND section = '$section' AND problemName = '$problem'";
 		$result = $db->sql_query($sql);
