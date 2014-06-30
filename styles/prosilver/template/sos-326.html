@@ -11,9 +11,10 @@
     <script type="text/javascript">
         dojoConfig = {isDebug: true, parseOnLoad: true};
     </script>
+          <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.9.1/dojo/dojo.js"></script>
+          <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.9.1/dijit/themes/claro/claro.css"/>
 
-
-    <style type="text/css">
+          <style type="text/css">
         body {
             background-color: #C6F5F2;
             font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -126,7 +127,7 @@ function(parser,dom,registry,Select,xhr,array,domConst,JSON, ready){
     parser.parse();  // Make sure widgets are defined
 
 function addProblems(){
-    xhr("/ram/available_problems.php",{
+    xhr("../LaitsV3/www/available_problems.php",{
       // Script also wants "student" but we will assume
       // All solutions are shared in this class
       query: {
@@ -164,22 +165,28 @@ function addProblems(){
 });
 
 
-        function setMode(theForm){
-	  var prob=theForm.problem_id.value;
-	  if(prob=="ecosystem" || prob=="predator-prey"){
-	    theForm.mode.value="AUTHOR";
-	  } else if(prob=="74" || prob=="110"){
-	    theForm.mode.value="COACHED";
-	  } else {
-	    console.warn("Invalid problem",theForm.problem_id.value);
-	  }
-          console.log("Mode for '",theForm.problem_id.value,"' is ",theForm.mode.value);
-	  return true;
+function handleRequest(theForm){
+      console.log("request handler opened");
+      var prob=theForm.type.value;
+      console.log("handling the problem",prob);
+        if(prob=="inivalues"){
+          window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value;
         }
+        else if(prob=="coached_probs"){
+            window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=COACHED&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value;
+        }
+        else if(prob=="addlProbs"){
+            window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value;
+        }
+        else if(prob=="AuthorCustProb"){
+            window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=AUTHOR&is=algebraic&p="+ theForm.author_problem.value+"&s="+theForm.section.value+"&a="+theForm.authorname.value;
+        }
+
+      }
 
 function addAuthor(formName){
     var form=document.forms[formName];
-     var id=form["problem_id"].value;
+    var id=form["problem_id"].value;
     var datum=pid[id];
     form["problem_id"].value=datum.problemname;
     form["author"].value=datum.author;
@@ -191,13 +198,14 @@ function addAuthor(formName){
 
     <div id="content">
 
-  <form action="/ram/startup.php"  onsubmit="return setMode(this);" method="POST"
-        name="iniProbs" class="problem-selection-form">
+  <form action="javascript:void(0);"  onsubmit="handleRequest(this);"
+        name="iniProbs" class="problem-selection-form" >
        <h2>Initial Problems</h2>
 
     <input type="hidden" name="mode" value="STUDENT">
     <input type="hidden" name="section" value="sos-326-spring14">
     <input type="hidden" name="username" value="{S_USERNAME}">
+    <input type="hidden" name="type" value="inivalues">
     <input type="hidden" name="forumurl" 
            value="{BOARD_URL}viewtopic.php">
 
@@ -219,7 +227,7 @@ function addAuthor(formName){
      </form>
 
 
-  <form action="/ram/startup.php" method="POST" class="problem-selection-form">
+  <form action="javascript:void(0);"  class="problem-selection-form" onsubmit="handleRequest(this)">
           <h2>Coached problems</h2>
 
         You can use the <a href="/intro-handout.pdf">handout</a> to help you.<br>
@@ -227,7 +235,8 @@ function addAuthor(formName){
         	   <input type="hidden" name="username" value="{S_USERNAME}">
               <input type="hidden" name="mode" value="COACHED">
               <input type="hidden" name="section" value="sos-326-spring14">
-    	      <input type="hidden" name="forumurl" 
+    	      <input type="hidden" name="type" value="coached_probs">
+              <input type="hidden" name="forumurl"
 		     value="{BOARD_URL}viewtopic.php">
                     <div class="fieldgroup">
                         <label for="coached_problems">Problem: </label>
@@ -250,13 +259,14 @@ function addAuthor(formName){
   </form>                   
 
 
-        <form action="/ram/startup.php" method="POST" class="problem-selection-form">
+        <form action="javascript:void(0);" class="problem-selection-form" onsubmit="handleRequest(this)">
 
             <h2>Additional Dragoon Problems</h2>
         	   <input type="hidden" name="username" value="{S_USERNAME}">
                    <input type="hidden" name="mode" value="STUDENT">
 		   <input type="hidden" name="forumurl"
 			  value="{BOARD_URL}viewtopic.php">
+           <input type="hidden" name="type" value="addlProbs">
 
                     <div class="fieldgroup">
                         <label for="problem_category">Problem Category: </label>
@@ -273,7 +283,7 @@ function addAuthor(formName){
                     </div>
 
                     <div class="fieldgroup">
-                        <label for="additional_problems">Problem: </label>
+                        <input type="hidden" name="username" value="{S_USERNAME}">
                         <select id="additional_problems" name="problem_id">
                            <!-- These should be filled dynamially from map, Bug #2183 --> 
                             <option value="isle1">Moose population 1</option>
@@ -296,11 +306,11 @@ function addAuthor(formName){
 
         </form>
 
-        <form action="/ram/startup.php" method="POST" class="problem-selection-form">
+        <form action="javascript:void(0);"  class="problem-selection-form" onsubmit="handleRequest(this)">
 
             <h2>Author a custom problem</h2>
-
-
+            <input type="hidden" name="username" value="{S_USERNAME}">
+            <input type="hidden" name="type" value="AuthorCustProb">
 		    <input type="hidden" name="mode" value="author">
 		    <input type="hidden" name="forumurl" 
 			  value="{BOARD_URL}viewtopic.php">
@@ -312,29 +322,37 @@ function addAuthor(formName){
                     </div>
                     <div class="fieldgroup">
                         <label for="problem_author">Group ID:</label>
-                        <select id="problem_author" name="username">
-			    <option value="Parks Challenges">Parks Challenges</option>
-			    <option value="Parks Visions">Parks Visions</option>
-		            <option value="Water Challenges">Water Challenges</option>
-			    <option value="Water Visions">Water Visions</option>
-			    <option value="Transit Challenges">Transit Challenges</option>
-			    <option value="Transit Visions">Transit Visions</option>
-                            <option value="Group 1">Group 1</option>
-                            <option value="Group 2">Group 2</option>
-                            <option value="Group 3">Group 3</option>
-                            <option value="Group 4">Group 4</option>
-                            <option value="Group 5">Group 5</option>
-                            <option value="Group 6">Group 6</option>
-                            <option value="Group 7">Group 7</option>
-                            <option value="Group 8">Group 8</option>
-                            <option value="Group 9">Group 9</option>
-                            <option value="Group 10">Group 10</option>
-                            <option value="Group 11">Group 11</option>
-                            <option value="Group 12">Group 12</option>
-                            <option value="Group 13">Group 13</option>
-                            <option value="Group 14">Group 14</option>
-                            <option value="Group 15">Group 15</option>
-                            <option value="{S_USERNAME}">Use my personal username</option>                            
+                        <select id="problem_author" name="authorname">
+			               <option value="Whole Systems 1">Whole Systems 1</option>
+			               <option value="Whole Systems 2">Whole Systems 2</option>
+                           <option value="Whole Systems 3">Whole Systems 3</option>
+                           <option value="Whole Systems 4">Whole Systems 4</option>
+                           <option value="Whole Systems 5">Whole Systems 5</option>
+                           <option value="Whole Systems 6">Whole Systems 6</option>
+                           <option value="Whole Systems 7">Whole Systems 7</option>
+                           <option value="Whole Systems 8">Whole Systems 8</option>
+			               <option value="Parks Challenges">Parks Challenges</option>
+			               <option value="Parks Visions">Parks Visions</option>
+		                   <option value="Water Challenges">Water Challenges</option>
+			               <option value="Water Visions">Water Visions</option>
+			               <option value="Transit Challenges">Transit Challenges</option>
+			               <option value="Transit Visions">Transit Visions</option>
+                           <option value="Group 1">Group 1</option>
+                           <option value="Group 2">Group 2</option>
+                           <option value="Group 3">Group 3</option>
+                           <option value="Group 4">Group 4</option>
+                           <option value="Group 5">Group 5</option>
+                           <option value="Group 6">Group 6</option>
+                           <option value="Group 7">Group 7</option>
+                           <option value="Group 8">Group 8</option>
+                           <option value="Group 9">Group 9</option>
+                           <option value="Group 10">Group 10</option>
+                           <option value="Group 11">Group 11</option>
+                           <option value="Group 12">Group 12</option>
+                           <option value="Group 13">Group 13</option>
+                           <option value="Group 14">Group 14</option>
+                           <option value="Group 15">Group 15</option>
+                           <option value="{S_USERNAME}">Use my personal username</option>
                         </select>
                       </div>
 
@@ -350,7 +368,7 @@ function addAuthor(formName){
 
         </form>
 
-        <form action="/ram/startup.php" method="POST" 
+        <form action="ram/startup.php" method="POST"
 	      name="custom_student"
               onsubmit="return addAuthor('custom_student');" 
 	      class="problem-selection-form">
