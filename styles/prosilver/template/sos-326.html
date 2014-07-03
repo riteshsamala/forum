@@ -207,7 +207,7 @@ function addProblems(){
         var i=1;  // value=0 acts like value=''
         array.forEach(data,function(datum){
            pid[i]=datum;  // record value for submit handling
-           var y={label:datum.problemname+" by "+datum.author,
+           var y={label:datum.problem+" by "+datum.author,
                              value:i++};
            widget.addOption(y);
         });
@@ -232,16 +232,16 @@ function addProblems(){
         var prob=theForm.type.value;
         console.log("handling the problem",prob);
         if(prob=="inivalues"){
-          window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value;
+          window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value;
         }
         else if(prob=="coached_probs"){
-            window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=COACHED&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value;
+            window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=COACHED&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value;
         }
         else if(prob=="addlProbs"){
-            window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value;
+            window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value;
         }
         else if(prob=="AuthorCustProb"){
-            window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=AUTHOR&is=algebraic&p="+ theForm.author_problem.value+"&s="+theForm.section.value+"&a="+theForm.authorname.value;
+            window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=AUTHOR&is=algebraic&p="+ theForm.author_problem.value+"&s="+theForm.section.value+"&a="+theForm.authorname.value;
         }
 
       }
@@ -250,9 +250,11 @@ function addProblems(){
          var form=document.forms[formName];
          var id=form["problem_id"].value;
          var datum=pid[id];
-         form["problem_id"].value=datum.problemname;
+         console.log(datum,"datum");
+         form["problem_id"].value=datum.problem;
          form["author"].value=datum.author;
-         window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ formName.username.value +"&m=AUTHOR&is=algebraic&p="+ formName.author_problem.value+"&s="+formName.section.value+"&a="+formName.authorname.value;
+         console.log("http://localhost/LaitsV3/www/index.html?u="+ form.username.value +"&m=AUTHOR&is=algebraic&p="+ form.problem_id.value+"&s="+form.section.value+"&a="+form.author.value);
+        window.location.href="http://localhost/LaitsV3/www/index.html?u="+ form.username.value +"&m=AUTHOR&is=algebraic&p="+ form.problem_id.value+"&s="+form.section.value+"&a="+form.author.value;
       }
       function updateProblems(){
             console.log("updateProblems called.");
@@ -448,7 +450,7 @@ function addProblems(){
 
         </form>
 
-        <form action="javascript:void(0);" method="POST"
+        <form action="javascript:void(0);"
 	      name="custom_student"
               onsubmit="return addAuthor('custom_student');" 
 	      class="problem-selection-form">
