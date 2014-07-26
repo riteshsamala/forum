@@ -22,7 +22,6 @@ if (!function_exists('group_user_add'))
 {
     // if contained within a function, otherwise don’t globalise these values.
     global $phpbb_root_path, $phpEx;
-
     include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
 }
 
@@ -172,7 +171,7 @@ if(!$topic_id && $problem != ''){
 			    // 3.1-dev, overwrites force_approve_state
  			   'force_visibility'            => true // Allow the post to be submitted without going into unapproved queue, or make it be deleted
 			);
-			$url = submit_post( $mode,  $subject,  $username,  $topic_type,  &$poll,  &$data);
+			$url = submit_post( $mode,  $subject,  $username,  $topic_type,  $poll,  $data);
 			$topic_id = $data['topic_id'];
 			$sql = "INSERT INTO topicIds (topic_id, username, problemName, section) 
 					VALUES ('$topic_id', '$author', '$problem', '$section')";

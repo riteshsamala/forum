@@ -115,6 +115,12 @@
     </style>
 
     <script type="text/javascript">
+        // Extract the sid from the url
+        var page_url=document.location.href;
+        var query_sid = page_url.substring(page_url.indexOf("sid=") + 4, page_url.length);
+        console.log("sid is",query_sid);
+       // Define the fid that is the forum id of the LMS
+        var fid=6;
         var problemIndex = {
             'Easy': {
                 'jared1': "Jared's weight",
@@ -232,16 +238,16 @@ function addProblems(){
         var prob=theForm.type.value;
         console.log("handling the problem",prob);
         if(prob=="inivalues"){
-          window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value;
+          window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
         }
         else if(prob=="coached_probs"){
-            window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=COACHED&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value;
+            window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=COACHED&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
         }
         else if(prob=="addlProbs"){
-            window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value;
+            window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
         }
         else if(prob=="AuthorCustProb"){
-            window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=AUTHOR&is=algebraic&p="+ theForm.author_problem.value+"&s="+theForm.section.value+"&a="+theForm.authorname.value;
+            window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=AUTHOR&is=algebraic&p="+ theForm.author_problem.value+"&s="+theForm.section.value+"&a="+theForm.authorname.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
         }
 
       }
@@ -254,7 +260,7 @@ function addProblems(){
          form["problem_id"].value=datum.problem;
          form["author"].value=datum.author;
          console.log("http://localhost/LaitsV3/www/index.html?u="+ form.username.value +"&m=AUTHOR&is=algebraic&p="+ form.problem_id.value+"&s="+form.section.value+"&a="+form.author.value);
-        window.location.href="http://localhost/LaitsV3/www/index.html?u="+ form.username.value +"&m=AUTHOR&is=algebraic&p="+ form.problem_id.value+"&s="+form.section.value+"&a="+form.author.value;
+        window.location.href="http://localhost/LaitsV3/www/index.html?u="+ form.username.value +"&m=AUTHOR&is=algebraic&p="+ form.problem_id.value+"&s="+form.section.value+"&a="+form.author.value+"&sid="+query_sid+"&fid="+fid;
       }
       function updateProblems(){
             console.log("updateProblems called.");
@@ -289,7 +295,7 @@ function addProblems(){
     <input type="hidden" name="username" value="{S_USERNAME}">
     <input type="hidden" name="type" value="inivalues">
     <input type="hidden" name="forumurl" 
-           value="{BOARD_URL}viewtopic.php">
+           value="{BOARD_URL}adm/create_forum.php">
 
                    <div class="fieldgroup">
                         <label for="initial_problems">Problem Name: </label>
@@ -319,7 +325,7 @@ function addProblems(){
               <input type="hidden" name="section" value="sos-326-spring14">
     	      <input type="hidden" name="type" value="coached_probs">
               <input type="hidden" name="forumurl"
-		     value="{BOARD_URL}viewtopic.php">
+		     value="{BOARD_URL}adm/create_forum.php">
                     <div class="fieldgroup">
                         <label for="coached_problems">Problem: </label>
                         <select id="coached_problems" name="problem_id">
@@ -347,7 +353,7 @@ function addProblems(){
         	   <input type="hidden" name="username" value="{S_USERNAME}">
                    <input type="hidden" name="mode" value="STUDENT">
 		   <input type="hidden" name="forumurl"
-			  value="{BOARD_URL}viewtopic.php">
+			  value="{BOARD_URL}adm/create_forum.php">
            <input type="hidden" name="type" value="addlProbs">
 
                     <div class="fieldgroup">
@@ -395,7 +401,7 @@ function addProblems(){
             <input type="hidden" name="type" value="AuthorCustProb">
 		    <input type="hidden" name="mode" value="author">
 		    <input type="hidden" name="forumurl" 
-			  value="{BOARD_URL}viewtopic.php">
+			  value="{BOARD_URL}adm/create_forum.php">
 
                     <div class="fieldgroup">
                         <label for="author_problem">Problem: </label>
@@ -458,7 +464,7 @@ function addProblems(){
             <h2>Solve a custom problem</h2>
 		    <input type="hidden" name="username" value="{S_USERNAME}">
 		    <input type="hidden" name="forumurl" 
-			   value="{BOARD_URL}viewtopic.php">
+			   value="{BOARD_URL}adm/create_forum.php">
 		    <input type="hidden" name="mode" value="student">
                     <input type="hidden" name="section" value="sos-326-spring14">
                     <!-- value will be overwritten by function addAuthor -->
