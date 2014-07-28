@@ -221,8 +221,8 @@ $auth->acl_clear_prefetch();
         //echo $mode,$subject, $username, $topic_type, $topic_type, $poll, $data, $update_message;
 // function which submits the post, make sure we include the necessary functions on the top
 
-        $final_res= submit_post ( 'post',  $subject,  $username,  POST_NORMAL,  $poll,  $data, [ $update_message = true]);
+        $final_res= submit_post ( 'post',  $subject,  $username,  POST_NORMAL,  $poll,  $data, [$update_message = true]);
         $final_res=html_entity_decode($final_res);
-        return array("redirect_to"=>$final_res);
+        return array("redirect_to"=>$final_res, "forum_id"=>$forum_data['forum_id']);
 }
 ?>
