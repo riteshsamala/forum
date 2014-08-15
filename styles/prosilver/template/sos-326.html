@@ -195,6 +195,7 @@ function(parser,dom,registry,Select,xhr,array,domConst,JSON, ready){
     parser.parse();  // Make sure widgets are defined
 
 function addProblems(){
+	console.log("sending xhr request");
     xhr("../LaitsV3/www/available_problems.php",{
       // Script also wants "student" but we will assume
       // All solutions are shared in this class
@@ -205,6 +206,7 @@ function addProblems(){
       },
       handleAs: "json"
     }).then(function(data){
+    	console.log("data called for");
         var widget = registry.byId("custom_problems");
         console.log("retrieved problems:  ",data);
         widget.options=[];  // clear any existing options.
@@ -213,7 +215,7 @@ function addProblems(){
         var i=1;  // value=0 acts like value=''
         array.forEach(data,function(datum){
            pid[i]=datum;  // record value for submit handling
-           var y={label:datum.problem+" by "+datum.author,
+           var y={label:datum.problem+" by "+datum.group,
                              value:i++};
            widget.addOption(y);
         });
@@ -225,6 +227,7 @@ function addProblems(){
 
   // initially populate options on startup
   addProblems();
+  console.log("add problems called");
 
   // Update options list which select is selected.
   var widget=registry.byId("custom_problems");
@@ -258,9 +261,9 @@ function addProblems(){
          var datum=pid[id];
          console.log(datum,"datum");
          form["problem_id"].value=datum.problem;
-         form["author"].value=datum.author;
-         console.log("http://localhost/LaitsV3/www/index.html?u="+ form.username.value +"&m=AUTHOR&is=algebraic&p="+ form.problem_id.value+"&s="+form.section.value+"&a="+form.author.value);
-        window.location.href="http://localhost/LaitsV3/www/index.html?u="+ form.username.value +"&m=AUTHOR&is=algebraic&p="+ form.problem_id.value+"&s="+form.section.value+"&a="+form.author.value+"&sid="+query_sid+"&fid="+fid;
+         form["group"].value=datum.group;
+         form["session_id"].value=datum.session_id;
+        window.location.href="http://localhost/LaitsV3/www/index.html?u="+ form.username.value +"&m=STUDENT&is=algebraic&p="+ form.problem_id.value+"&s="+form.section.value+"&g="+form.group.value+"&sid="+query_sid+"&fid="+fid+"&x="+form.session_id.value;
       }
       function updateProblems(){
             console.log("updateProblems called.");
@@ -294,24 +297,19 @@ function addProblems(){
     <input type="hidden" name="section" value="sos-326-spring14">
     <input type="hidden" name="username" value="{S_USERNAME}">
     <input type="hidden" name="type" value="inivalues">
-    <input type="hidden" name="forumurl" 
-           value="{BOARD_URL}adm/create_forum.php">
-
-                   <div class="fieldgroup">
-                        <label for="initial_problems">Problem Name: </label>
-                        <select id="initial_problems" name="problem_id">
-                        <option value="74">Dying orchard</option>
-                        <option value="110">Chestnut blight</option>
-			  <!-- <option value="ecosystem">Ecosystem</option> -->
-			  <option value="predator-prey">Predator-prey</option>
-                        </select>
-                    </div>
-
-                    <div class="fieldgroup">
-                        <button type="submit" value="Continue" class="submit">
-                        Open problem
-                        </button>
-                    </div>
+    <input type="hidden" name="forumurl" value="{BOARD_URL}adm/create_forum.php">
+ 		<div class="fieldgroup">
+        	<label for="initial_problems">Problem Name: </label>
+            <select id="initial_problems" name="problem_id">
+            	<option value="74">Dying orchard</option>
+            	<option value="110">Chestnut blight</option>
+				<!-- <option value="ecosystem">Ecosystem</option> -->
+				<option value="predator-prey">Predator-prey</option>
+            </select>
+       	</div>            
+       	<div class="fieldgroup">
+        	<button type="submit" value="Continue" class="submit">Open problem</button>
+       	</div>
      </form>
 
 
@@ -405,8 +403,7 @@ function addProblems(){
 
                     <div class="fieldgroup">
                         <label for="author_problem">Problem: </label>
-                        <input type="text" id="author_problem" 
-                            name="problem_id" onChange="javascript:this.value=this.value.toLowerCase();">
+                        <input type="text" id="author_problem" name="problem_id" onChange="javascript:this.value=this.value.toLowerCase();">
                     </div>
                     <div class="fieldgroup">
                         <label for="problem_author">Group ID:</label>
@@ -463,13 +460,12 @@ function addProblems(){
 
             <h2>Solve a custom problem</h2>
 		    <input type="hidden" name="username" value="{S_USERNAME}">
-		    <input type="hidden" name="forumurl" 
-			   value="{BOARD_URL}adm/create_forum.php">
+		    <input type="hidden" name="forumurl" value="{BOARD_URL}adm/create_forum.php">
 		    <input type="hidden" name="mode" value="student">
-                    <input type="hidden" name="section" value="sos-326-spring14">
+            <input type="hidden" name="section" value="sos-326-spring14">
                     <!-- value will be overwritten by function addAuthor -->
-                    <input type="hidden" name="author" value="">
-
+            <input type="hidden" name="group" value="">
+			<input type="hidden" name="session_id" value="">
 
            <div class="claro">
     <!-- Needs to be a dijit for addOption to work -->
