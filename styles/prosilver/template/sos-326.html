@@ -130,7 +130,7 @@
                 'dodos': "Dodo extinction",
                 'rabbits': "Rabbit population",
                 105: 'Intro problem 1', 106: 'Intro problem 2',
-                107: 'Intro problem 3', 108: 'Intro problem 4',
+                107: 'Intro problem 3', 108: 'Intro problem 4'
             },
             'Training': {
                 74: 'Dying orchard', 92: 'Bilge water', 94: 'Rust',
@@ -202,6 +202,7 @@ function addProblems(){
       query: {
         // This should be gotten from the appropriate section
         // form field (or java should set that field).
+		username: "",
         section: "sos-326-spring14"
       },
       handleAs: "json"
@@ -263,7 +264,7 @@ function addProblems(){
          form["problem_id"].value=datum.problem;
          form["group"].value=datum.group;
          form["session_id"].value=datum.session_id;
-        window.location.href="http://localhost/LaitsV3/www/index.html?u="+ form.username.value +"&m=STUDENT&is=algebraic&p="+ form.problem_id.value+"&s="+form.section.value+"&g="+form.group.value+"&sid="+query_sid+"&fid="+fid+"&x="+form.session_id.value;
+         window.location.href = "http://localhost/LaitsV3/www/index.html?u="+ form.username.value +"&m=STUDENT&is=algebraic&p="+ form.problem_id.value+"&s="+form.section.value+"&g="+form.group.value+"&sid="+query_sid+"&fid="+fid+"&x="+form.session_id.value;
       }
       function updateProblems(){
             console.log("updateProblems called.");
