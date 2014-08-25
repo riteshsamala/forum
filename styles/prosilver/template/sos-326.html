@@ -242,16 +242,16 @@ function addProblems(){
         var prob=theForm.type.value;
         console.log("handling the problem",prob);
         if(prob=="inivalues"){
-          window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
+          window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
         }
         else if(prob=="coached_probs"){
-            window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=COACHED&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
+            window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=COACHED&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
         }
         else if(prob=="addlProbs"){
-            window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
+            window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
         }
         else if(prob=="AuthorCustProb"){
-            window.location.href="http://localhost/LaitsV3/www/index.html?u="+ theForm.username.value +"&m=AUTHOR&is=algebraic&p="+ theForm.author_problem.value+"&s="+theForm.section.value+"&g="+theForm.authorname.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
+            window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=AUTHOR&is=algebraic&p="+ theForm.author_problem.value+"&s="+theForm.section.value+"&g="+theForm.authorname.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
         }
 
       }
@@ -264,7 +264,7 @@ function addProblems(){
          form["problem_id"].value=datum.problem;
          form["group"].value=datum.group;
          form["session_id"].value=datum.session_id;
-         window.location.href = "http://localhost/LaitsV3/www/index.html?u="+ form.username.value +"&m=STUDENT&is=algebraic&p="+ form.problem_id.value+"&s="+form.section.value+"&g="+form.group.value+"&sid="+query_sid+"&fid="+fid+"&x="+form.session_id.value;
+         window.location.href = "http://dragoon.asu.edu/demo/index.html?u="+ form.username.value +"&m=STUDENT&is=algebraic&p="+ form.problem_id.value+"&s="+form.section.value+"&g="+form.group.value+"&sid="+query_sid+"&fid="+fid+"&x="+form.session_id.value;
       }
       function updateProblems(){
             console.log("updateProblems called.");

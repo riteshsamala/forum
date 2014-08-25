@@ -20,7 +20,7 @@ $auth->acl($user->data);
 // New Topic Example
 //creating a new topic
 $_POST["username"] = "ritesh";
-$_POST["password"] = "Srinika2701";
+$_POST["password"] = "";
 $_POST["title"] = "hello Earth";
 $_POST["text"] = "hello world";
 $_POST["forumid"] = 6; //this is the forum id you wanna post to (required for a reply too)
