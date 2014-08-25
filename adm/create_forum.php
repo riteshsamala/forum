@@ -67,14 +67,16 @@ if ($forum_id)
 			echo "resource exists";
     		echo "redirect to new node topic";
     		//if yes, extract the topic_id and redirect to the topic under the forum
-			header( "Location: $next_url"."&t=".$res['topic_id']."&sid=".$sid_f );	
+			echo "Location: $next_url"."&t=".$res['topic_id']."&sid=".$sid_f ;
+			//header( "Location: $next_url"."&t=".$res['topic_id']."&sid=".$sid_f );	
 		}
 		else{
 			//if not create the topic
 			$return_url=create_node_topic($forum_id,$node_id,$node_desc);
 			print_r($return_url);
 	    	//Now, redirect to the topic inside the node
-		    header("Location: $return_url[redirect_to]");	
+	    	echo "Location: $return_url[redirect_to]";
+		    //header("Location: $return_url[redirect_to]");	
 		}	
 	}
 	else{
@@ -82,7 +84,8 @@ if ($forum_id)
 	    $tid_a=$db->sql_query("select topic_id from phpbb_topics where forum_id='$forum_id' AND topic_title='general discussion'");
 		$tid=$db->sql_fetchrow($tid_a);
 	    $next_url=$next_url."&t=".$tid['topic_id']."sid=".$sid_f;
-	    header("Location: $next_url");
+	    echo "Location: $next_url";
+	    //header("Location: $next_url");
 	}
     
  }
@@ -95,6 +98,7 @@ if($node_id && $node_desc){
 			$return_url=create_node_topic($forum_check['forum_id'],$node_id,$node_desc);
 			print_r($return_url);
 	    	//Now, redirect to the topic inside the node
+		    echo "Location: $return_url[redirect_to]";
 		    header("Location: $return_url[redirect_to]");
         }	
 	
@@ -103,6 +107,7 @@ if($node_id && $node_desc){
 	    $tid_a=$db->sql_query("select topic_id from phpbb_topics where forum_id=$forum_id AND topic_title='general discussion'");
 		$tid=$db->sql_fetchrow($tid_a);
 	    $next_url=$next_url."&t=".$tid['topic_id']."sid=".$sid_f;
+	    echo "Location: $next_url";
 	    header("Location: $next_url");
 	}
 
