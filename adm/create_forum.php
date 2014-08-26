@@ -6,6 +6,7 @@ define('NEED_SID', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '../';
 echo $phpbb_root_path."is the root path";
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
+
 echo "root path".$phpbb_root_path;
 require($phpbb_root_path . 'common.' . $phpEx);
 require($phpbb_root_path. 'adm/create_forum_function.' . $phpEx);
@@ -13,6 +14,8 @@ require($phpbb_root_path. 'adm/create_post_function.' . $phpEx);
 require($phpbb_root_path . 'includes/functions_admin.' . $phpEx);
 require($phpbb_root_path . 'includes/functions_module.' . $phpEx);
 include($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
+
+
 
 echo "Start session management";
 $user->session_begin();
