@@ -6,19 +6,12 @@ define('NEED_SID', true);
 require("create_forum_function.php");
 require('create_post_function.php');
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : "../";
-echo $phpbb_root_path."is the root path";
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 echo "root path".$phpbb_root_path;
 require($phpbb_root_path . 'common.' . $phpEx);
-echo "common included";
 require($phpbb_root_path . 'includes/functions_admin.' . $phpEx);
 require($phpbb_root_path . 'includes/functions_module.' . $phpEx);
 include($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
-echo "includes finished";
-
-
-
-
 echo "Start session management";
 $user->session_begin();
 echo "authentication";
