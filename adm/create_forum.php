@@ -60,7 +60,7 @@ if ($forum_id)
     $response['forum_id'] = $forum_id;
     $next_url="../viewtopic.php?f=".$forum_id;
     //Check if the node corresponding variables are set
-    if($node_id && $node_desc){
+    if(isset($node_id) && isset($node_desc)){
     	echo "Node Id and Node Desc Are Set<br/>";
     	echo $forum_id; echo " ".$node_id;
 		$qu="select * from check_node_topics where forum_id='$forum_id' && node_id='$node_id'";
@@ -84,15 +84,15 @@ if ($forum_id)
 		//redirect to general discussion thread
 	    $tid_a=$db->sql_query("select topic_id from phpbb_topics where forum_id='$forum_id' AND topic_title='general discussion'");
 		$tid=$db->sql_fetchrow($tid_a);
-	    $next_url2=$next_url."&t=".$tid['topic_id']."sid=".$sid_f;
-	    header("Location: $next_url2");
+	    $next_url=$next_url."&t=".$tid['topic_id']."sid=".$sid_f;
+	    header("Location: $next_url");
 	}
     
  }
 else{
 $forum_check=create_forum($prob_name,$_GET['fid']);
 	
-if($node_id && $node_desc){
+if(isset($node_id) && isset($node_desc)){
 		
 			//create the topic
 			$return_url=create_node_topic($forum_check['forum_id'],$node_id,$node_desc);
@@ -107,7 +107,7 @@ if($node_id && $node_desc){
 	    $tid_a=$db->sql_query("select topic_id from phpbb_topics where forum_id=$forum_id AND topic_title='general discussion'");
 		$tid=$db->sql_fetchrow($tid_a);
 	    $next_url=$next_url."&t=".$tid['topic_id']."sid=".$sid_f;
-	    header("Location: $next_url");
+	    //header("Location: $next_url");
 	}
 
 //redirect to newly created thread corresponding to the node_id
