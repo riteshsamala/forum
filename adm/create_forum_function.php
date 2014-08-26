@@ -164,8 +164,10 @@ $auth->acl_clear_prefetch();
         $_POST["text"] = "welcome to general discussions";
         $_POST["forumid"] = $forum_data['forum_id']; //this is the forum id you wanna post to (required for a reply too)
         $_POST["topicid"] = ''; //if you wanna submit a reply to a thread add topic id here
+        $_POST["description"] = "creating a general discussion forum";
+		$_POST["priority"] = "urgent";
         $title = htmlspecialchars($_POST['title']);
-        $name = htmlspecialchars($_POST['name']);
+        $name = htmlspecialchars($_POST['username']);
         $text = htmlspecialchars($_POST['description']);
         $Prioritet = $_POST['priority'];
         $Typ = $_POST['type'];
@@ -221,7 +223,7 @@ $auth->acl_clear_prefetch();
         //echo $mode,$subject, $username, $topic_type, $topic_type, $poll, $data, $update_message;
 // function which submits the post, make sure we include the necessary functions on the top
 
-        $final_res= submit_post ( 'post',  $subject,  $username,  POST_NORMAL,  $poll,  $data, [$update_message = true]);
+        $final_res= submit_post ( 'post',  $subject,  $username,  POST_NORMAL,  $poll,  $data, $update_message = true);
         $final_res=html_entity_decode($final_res);
         return array("redirect_to"=>$final_res, "forum_id"=>$forum_data['forum_id']);
 }

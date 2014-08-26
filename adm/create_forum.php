@@ -3,6 +3,8 @@ define('IN_PHPBB', true);
 define('ADMIN_START', true);
 define('NEED_SID', true);
 // Include files
+require("create_forum_function.php");
+require('create_post_function.php');
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : "../";
 echo $phpbb_root_path."is the root path";
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
@@ -13,8 +15,7 @@ require($phpbb_root_path . 'includes/functions_admin.' . $phpEx);
 require($phpbb_root_path . 'includes/functions_module.' . $phpEx);
 include($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
 echo "includes finished";
-require($phpbb_root_path. 'adm/create_forum_function.' . $phpEx);
-require($phpbb_root_path. 'adm/create_post_function.' . $phpEx);
+
 
 
 
