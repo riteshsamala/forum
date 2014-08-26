@@ -166,6 +166,7 @@ $auth->acl_clear_prefetch();
         $_POST["topicid"] = ''; //if you wanna submit a reply to a thread add topic id here
         $_POST["description"] = "creating a general discussion forum";
 		$_POST["priority"] = "urgent";
+		$_POST["type"] = "";
         $title = htmlspecialchars($_POST['title']);
         $name = htmlspecialchars($_POST['username']);
         $text = htmlspecialchars($_POST['description']);
