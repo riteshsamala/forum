@@ -1,12 +1,12 @@
 <?php
-print_r($_GET);
 define('IN_PHPBB', true);
 define('ADMIN_START', true);
 define('NEED_SID', true);
-
 // Include files
-$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './../';
+$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '../';
+echo $phpbb_root_path."is the root path";
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
+echo "root path".$phpbb_root_path;
 require($phpbb_root_path . 'common.' . $phpEx);
 require($phpbb_root_path. 'adm/create_forum_function.' . $phpEx);
 require($phpbb_root_path. 'adm/create_post_function.' . $phpEx);
@@ -14,8 +14,9 @@ require($phpbb_root_path . 'includes/functions_admin.' . $phpEx);
 require($phpbb_root_path . 'includes/functions_module.' . $phpEx);
 include($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
 
-// Start session management
+echo "Start session management";
 $user->session_begin();
+echo "authentication";
 $auth->acl($user->data);
 // End session management
 
@@ -30,9 +31,6 @@ if(isset($_GET['ndesc'])){
 	 $node_desc=$_GET['ndesc'];
     }
 global $phpbb_root_path, $phpEx, $user, $auth, $cache, $db, $config, $template, $table_prefix;
-
-
-
 $response = array();
 $data = array(
     'forum_name' => $prob_name,
@@ -93,6 +91,7 @@ if($node_id && $node_desc){
 		
 			//create the topic
 			$return_url=create_node_topic($forum_check['forum_id'],$node_id,$node_desc);
+	
 			print_r($return_url);
 	    	//Now, redirect to the topic inside the node
 		    header("Location: $return_url[redirect_to]");
