@@ -5,17 +5,20 @@ define('ADMIN_START', true);
 define('NEED_SID', true);
 // Include files
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : "../";
-echo $phpbb_root_path."is the root path";
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 
 require($phpbb_root_path . 'common.' . $phpEx);
 require($phpbb_root_path . 'includes/functions_admin.' . $phpEx);
 require($phpbb_root_path . 'includes/functions_module.' . $phpEx);
 include($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
+<<<<<<< HEAD
 require($phpbb_root_path .'create_forum_function.php'. $phpEx);
 require($phpbb_root_path .'create_post_function.php'. $phpEx);
 
 //start session management
+=======
+echo "Start session management";
+>>>>>>> 3046e3c99ffcfa9abba1ad8c1990ca0bbb3449e6
 $user->session_begin();
 
 $auth->acl($user->data);
