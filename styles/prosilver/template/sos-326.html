@@ -117,7 +117,7 @@
     <script type="text/javascript">
         // Extract the sid from the url
         var page_url=document.location.href;
-        var query_sid = page_url.substring(page_url.indexOf("sid=") + 4, page_url.length);
+        var query_sid = $_COOKIE['phpbb3_9pyoa_sid'];
         console.log("sid is",query_sid);
        // Define the fid that is the forum id of the LMS
         var fid=6;

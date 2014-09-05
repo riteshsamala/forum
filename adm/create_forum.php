@@ -11,14 +11,10 @@ require($phpbb_root_path . 'common.' . $phpEx);
 require($phpbb_root_path . 'includes/functions_admin.' . $phpEx);
 require($phpbb_root_path . 'includes/functions_module.' . $phpEx);
 include($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
-<<<<<<< HEAD
 require($phpbb_root_path .'create_forum_function.php'. $phpEx);
 require($phpbb_root_path .'create_post_function.php'. $phpEx);
 
 //start session management
-=======
-echo "Start session management";
->>>>>>> 3046e3c99ffcfa9abba1ad8c1990ca0bbb3449e6
 $user->session_begin();
 
 $auth->acl($user->data);
@@ -120,5 +116,4 @@ if(isset($node_id) && isset($node_desc)){
 
 //redirect to newly created thread corresponding to the node_id
 }
-
 ?>
