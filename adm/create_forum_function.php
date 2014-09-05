@@ -119,7 +119,7 @@ while ($row = $db->sql_fetchrow($result))
     $users_sql_ary[] = array(
         'user_id'         => (int) $row['user_id'],
         'forum_id'         => $forum_data['forum_id'],
-        'auth_option_id'   => (int) $row['auth_option_id'],
+        'auth_option_id'   => 17,
         'auth_role_id'      => (int) $row['auth_role_id'],
         'auth_setting'      => (int) $row['auth_setting']
     );
@@ -226,6 +226,7 @@ $auth->acl_clear_prefetch();
 
         $final_res= submit_post ( 'post',  $subject,  $username,  POST_NORMAL,  $poll,  $data, $update_message = true);
         $final_res=html_entity_decode($final_res);
+        
         return array("redirect_to"=>$final_res, "forum_id"=>$forum_data['forum_id']);
 }
 ?>

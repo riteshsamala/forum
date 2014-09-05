@@ -1,5 +1,4 @@
 <?php
-
 define('IN_PHPBB', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
@@ -9,19 +8,16 @@ include($phpbb_root_path . 'common.' . $phpEx);
 $user->session_begin();
 $auth->acl($user->data);
 $user->setup();
-
 // Require login
-if ($user->data['user_id'] == ANONYMOUS)
+if ($user->data['user_id'] == ANONYMOUS )
   {
     login_box('', $user->lang['LOGIN']);
   } 
-
 page_header('SOS 326: Sustainable Ecosystems - Spring 14');
-
+$url=append_sid('sos-326.html');
 $template->set_filenames(array(
-			       'body' => 'sos-326.html',
+			       'body' => $url,
 			       ));
-
 make_jumpbox(append_sid("{$phpbb_root_path}viewforum.$phpEx"));
 page_footer();
 
