@@ -1,7 +1,6 @@
 <!-- INCLUDE overall_header.html -->
 
-<h2>SOS 326:  Sustainable Ecosystems</h2>
-
+<h2>Steve Eno's Class</h2>
 <div class="panel">
    <div class="inner"><span class="corners-top"><span></span></span>
 
@@ -66,7 +65,7 @@
         .blue-bold { font-size:18px; font-weight:bold; color:blue; }
 
         .problem-selection-form {
-            background: url("/devel/form-fieldset.gif") repeat-x scroll left bottom #F8FDEF;
+            background: url("/demo/form-fieldset.gif") repeat-x scroll left bottom #F8FDEF;
             border: 1px solid #DFDCDC;
             border-radius: 15px 15px 15px 15px;
             display: inline-block;
@@ -78,7 +77,7 @@
         }
 
         .problem-selection-form .fieldgroup {
-            background: url("/devel/form-divider.gif") repeat-x scroll left top transparent;
+            background: url("/demo/form-divider.gif") repeat-x scroll left top transparent;
             display: inline-block;
             padding: 8px 10px;
             width: 380px;
@@ -120,7 +119,7 @@
         var query_sid = page_url.substring(page_url.indexOf("sid=") + 4, page_url.length);
         console.log("sid is",query_sid);
        // Define the fid that is the forum id of the LMS
-        var fid=6;
+        var fid=31;
         var problemIndex = {
             'Easy': {
                 'jared1': "Jared's weight",
@@ -196,14 +195,14 @@ function(parser,dom,registry,Select,xhr,array,domConst,JSON, ready){
 
 function addProblems(){
 	console.log("sending xhr request");
-    xhr("../LaitsV3/www/available_problems.php",{
+    xhr("http://dragoon.asu.edu/demo/available_problems.php",{
       // Script also wants "student" but we will assume
       // All solutions are shared in this class
       query: {
         // This should be gotten from the appropriate section
         // form field (or java should set that field).
-		username: "",
-        section: "sos-326-spring14"
+		username: "joinerr",
+        section: "eno"
       },
       handleAs: "json"
     }).then(function(data){
@@ -236,23 +235,29 @@ function addProblems(){
   dojo.connect(widget,"onClick",addProblems);
 });
 
+       function OpenInNewTab(url) {
+        var win = window.open(url, '_blank');
+        win.focus();
+      }
 
       function handleRequest(theForm){
         console.log("request handler opened");
         var prob=theForm.type.value;
+        var url="";
         console.log("handling the problem",prob);
         if(prob=="inivalues"){
-          window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
+          url="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
         }
         else if(prob=="coached_probs"){
-            window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=COACHED&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
+            url="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=COACHED&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
         }
         else if(prob=="addlProbs"){
-            window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
+            url="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=STUDENT&sm=feedback&is=algebraic&p="+ theForm.problem_id.value+"&s="+theForm.section.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
         }
         else if(prob=="AuthorCustProb"){
-            window.location.href="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=AUTHOR&is=algebraic&p="+ theForm.author_problem.value+"&s="+theForm.section.value+"&g="+theForm.authorname.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
+            url="http://dragoon.asu.edu/demo/index.html?u="+ theForm.username.value +"&m=AUTHOR&is=algebraic&p="+ theForm.author_problem.value+"&s="+theForm.section.value+"&g="+theForm.authorname.value+"&f="+theForm.forumurl.value+"&sid="+query_sid+"&fid="+fid;
         }
+        OpenInNewTab(url);
 
       }
 
@@ -264,7 +269,7 @@ function addProblems(){
          form["problem_id"].value=datum.problem;
          form["group"].value=datum.group;
          form["session_id"].value=datum.session_id;
-         window.location.href = "http://dragoon.asu.edu/demo/index.html?u="+ form.username.value +"&m=STUDENT&is=algebraic&p="+ form.problem_id.value+"&s="+form.section.value+"&g="+form.group.value+"&sid="+query_sid+"&fid="+fid+"&x="+form.session_id.value;
+         OpenInNewTab("http://dragoon.asu.edu/demo/index.html?u="+ form.username.value +"&m=STUDENT&is=algebraic&p="+ form.problem_id.value+"&s="+form.section.value+"&f="+form.forumurl.value+"&g="+form.group.value+"&sid="+query_sid+"&fid="+fid+"&x="+form.session_id.value);
       }
       function updateProblems(){
             console.log("updateProblems called.");
@@ -289,62 +294,6 @@ function addProblems(){
 <div id="page-wrap">
 
     <div id="content">
-
-  <form action="javascript:void(0);"  onsubmit="handleRequest(this);"
-        name="iniProbs" class="problem-selection-form" >
-       <h2>Initial Problems</h2>
-
-    <input type="hidden" name="mode" value="STUDENT">
-    <input type="hidden" name="section" value="sos-326-spring14">
-    <input type="hidden" name="username" value="{S_USERNAME}">
-    <input type="hidden" name="type" value="inivalues">
-    <input type="hidden" name="forumurl" value="{BOARD_URL}adm/create_forum.php">
- 		<div class="fieldgroup">
-        	<label for="initial_problems">Problem Name: </label>
-            <select id="initial_problems" name="problem_id">
-            	<option value="74">Dying orchard</option>
-            	<option value="110">Chestnut blight</option>
-				<!-- <option value="ecosystem">Ecosystem</option> -->
-				<option value="predator-prey">Predator-prey</option>
-            </select>
-       	</div>            
-       	<div class="fieldgroup">
-        	<button type="submit" value="Continue" class="submit">Open problem</button>
-       	</div>
-     </form>
-
-
-  <form action="javascript:void(0);"  class="problem-selection-form" onsubmit="handleRequest(this)">
-          <h2>Coached problems</h2>
-
-        You can use the <a href="/intro-handout.pdf">handout</a> to help you.<br>
-
-        	   <input type="hidden" name="username" value="{S_USERNAME}">
-              <input type="hidden" name="mode" value="COACHED">
-              <input type="hidden" name="section" value="sos-326-spring14">
-    	      <input type="hidden" name="type" value="coached_probs">
-              <input type="hidden" name="forumurl"
-		     value="{BOARD_URL}adm/create_forum.php">
-                    <div class="fieldgroup">
-                        <label for="coached_problems">Problem: </label>
-                        <select id="coached_problems" name="problem_id">
-                           <!-- These should be filled dynamially from map, Bug #2183 --> 
-                            <option value="jared1">Jared's weight</option>
-                            <option value="jared2">Jared &amp; Oprah</option>
-                            <option value="jared3">Jared &amp; Oprah +</option>
-                            <option value="jared4">Jared &amp; Oprah *</option>
-                            <option value="dodos">Dodo extinction</option>
-                            <option value="rabbits">Rabbit population</option>
-                         </select>
-                    </div>
-
-                    <div class="fieldgroup">
-                        <button type="submit" value="Continue" class="submit">
-                        Open problem
-                        </button>
-                    </div>
-  </form>                   
-
 
         <form action="javascript:void(0);" class="problem-selection-form" name="problem-select" onsubmit="handleRequest(this)">
 
@@ -382,7 +331,7 @@ function addProblems(){
                         </select>
                     </div>
 
-                    <input type="hidden" name="section" value="sos-326-spring14">
+                    <input type="hidden" name="section" value="eno">
 
                     <div class="fieldgroup">
                         <button type="submit" value="Continue" class="submit">
@@ -392,81 +341,19 @@ function addProblems(){
 
 
         </form>
-
-        <form action="javascript:void(0);"  class="problem-selection-form" onsubmit="handleRequest(this)">
-
-            <h2>Author a custom problem</h2>
-            <input type="hidden" name="username" value="{S_USERNAME}">
-            <input type="hidden" name="type" value="AuthorCustProb">
-		    <input type="hidden" name="mode" value="author">
-		    <input type="hidden" name="forumurl" 
-			  value="{BOARD_URL}adm/create_forum.php">
-
-                    <div class="fieldgroup">
-                        <label for="author_problem">Problem: </label>
-                        <input type="text" id="author_problem" name="problem_id" onChange="javascript:this.value=this.value.toLowerCase();">
-                    </div>
-                    <div class="fieldgroup">
-                        <label for="problem_author">Group ID:</label>
-                        <select id="problem_author" name="authorname">
-			               <option value="Whole Systems 1">Whole Systems 1</option>
-			               <option value="Whole Systems 2">Whole Systems 2</option>
-                           <option value="Whole Systems 3">Whole Systems 3</option>
-                           <option value="Whole Systems 4">Whole Systems 4</option>
-                           <option value="Whole Systems 5">Whole Systems 5</option>
-                           <option value="Whole Systems 6">Whole Systems 6</option>
-                           <option value="Whole Systems 7">Whole Systems 7</option>
-                           <option value="Whole Systems 8">Whole Systems 8</option>
-			               <option value="Parks Challenges">Parks Challenges</option>
-			               <option value="Parks Visions">Parks Visions</option>
-		                   <option value="Water Challenges">Water Challenges</option>
-			               <option value="Water Visions">Water Visions</option>
-			               <option value="Transit Challenges">Transit Challenges</option>
-			               <option value="Transit Visions">Transit Visions</option>
-                           <option value="Group 1">Group 1</option>
-                           <option value="Group 2">Group 2</option>
-                           <option value="Group 3">Group 3</option>
-                           <option value="Group 4">Group 4</option>
-                           <option value="Group 5">Group 5</option>
-                           <option value="Group 6">Group 6</option>
-                           <option value="Group 7">Group 7</option>
-                           <option value="Group 8">Group 8</option>
-                           <option value="Group 9">Group 9</option>
-                           <option value="Group 10">Group 10</option>
-                           <option value="Group 11">Group 11</option>
-                           <option value="Group 12">Group 12</option>
-                           <option value="Group 13">Group 13</option>
-                           <option value="Group 14">Group 14</option>
-                           <option value="Group 15">Group 15</option>
-                           <option value="{S_USERNAME}">Use my personal username</option>
-                        </select>
-                      </div>
-
-
-                    <input type="hidden" name="section" value="sos-326-spring14">
-
-                    <div class="fieldgroup">
-                        <button type="submit" value="Continue" class="submit">
-                        Open problem
-                        </button>
-                    </div>
-
-
-        </form>
-
         <form action="javascript:void(0);"
-	      name="custom_student"
+        name="custom_student"
               onsubmit="return addAuthor('custom_student');" 
-	      class="problem-selection-form">
+        class="problem-selection-form">
 
             <h2>Solve a custom problem</h2>
-		    <input type="hidden" name="username" value="{S_USERNAME}">
-		    <input type="hidden" name="forumurl" value="{BOARD_URL}adm/create_forum.php">
-		    <input type="hidden" name="mode" value="student">
-            <input type="hidden" name="section" value="sos-326-spring14">
+        <input type="hidden" name="username" value="{S_USERNAME}">
+        <input type="hidden" name="forumurl" value="{BOARD_URL}adm/create_forum.php">
+        <input type="hidden" name="mode" value="student">
+            <input type="hidden" name="section" value="eno">
                     <!-- value will be overwritten by function addAuthor -->
             <input type="hidden" name="group" value="">
-			<input type="hidden" name="session_id" value="">
+      <input type="hidden" name="session_id" value="">
 
            <div class="claro">
     <!-- Needs to be a dijit for addOption to work -->
@@ -485,8 +372,47 @@ function addProblems(){
 
 
         </form>
+<!-- IF U_ACP -->
+        <form action="javascript:void(0);"  class="problem-selection-form" onsubmit="handleRequest(this)">
 
-   <h2><a href="viewforum.php?f=6">Problem Discussions</a></h2>
+            <h2>Author a custom problem</h2>
+            <input type="hidden" name="username" value="{S_USERNAME}">
+            <input type="hidden" name="type" value="AuthorCustProb">
+		    <input type="hidden" name="mode" value="author">
+		    <input type="hidden" name="forumurl" 
+			  value="{BOARD_URL}adm/create_forum.php">
+
+                    <div class="fieldgroup">
+                        <label for="author_problem">Problem: </label>
+                        <input type="text" id="author_problem" name="problem_id" onChange="javascript:this.value=this.value.toLowerCase();">
+                    </div>
+                    <div class="fieldgroup">
+                        <label for="problem_author">Group ID:</label>
+                        <select id="problem_author" name="authorname">
+                           <option value="{S_USERNAME}">Use my personal username</option>
+                           <option value="Group 1">Group 1</option>
+                           <option value="Group 2">Group 2</option>
+                           <option value="Group 3">Group 3</option>
+                           <option value="Group 4">Group 4</option>
+                        </select>
+                      </div>
+
+
+                    <input type="hidden" name="section" value="eno">
+
+                    <div class="fieldgroup">
+                        <button type="submit" value="Continue" class="submit">
+                        Open problem
+                        </button>
+                    </div>
+
+
+        </form>
+        <h2><a href="#">Link to Dashboard</a></h2><!-- ENDIF -->
+
+
+
+   <h2><a href="viewforum.php?f=31">Problem Discussions</a></h2>
 
 
     </div>

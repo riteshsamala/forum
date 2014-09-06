@@ -34,7 +34,7 @@
             'enable_sig'        => true,    // Enable the signature of the poster to be displayed in the post. (bool)
 
             // Message Body
-            'message'            => "checking before committing",        // Your text you wish to have submitted. It should pass through generate_text_for_storage() before this. (string)
+            'message'            => $node_desc,        // Your text you wish to have submitted. It should pass through generate_text_for_storage() before this. (string)
             'message_md5'    => md5($message),// The md5 hash of your message
 
             // Values from generate_text_for_storage()

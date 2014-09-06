@@ -13,8 +13,8 @@ if ($user->data['user_id'] == ANONYMOUS )
   {
     login_box('', $user->lang['LOGIN']);
   } 
-page_header('SOS 326: Sustainable Ecosystems - Spring 14');
-$url=append_sid('sos-326.html');
+page_header('Steve Enos Class');
+$url=append_sid('ucla.html');
 $template->set_filenames(array(
 			       'body' => $url,
 			       ));
