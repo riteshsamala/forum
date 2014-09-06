@@ -14,11 +14,10 @@ if ($user->data['user_id'] == ANONYMOUS )
     login_box('', $user->lang['LOGIN']);
   } 
 page_header('SOS 326: Sustainable Ecosystems - Spring 14');
-$url=append_sid('sos-326.html');
+$url='sos-326.html';
 $template->set_filenames(array(
 			       'body' => $url,
 			       ));
 make_jumpbox(append_sid("{$phpbb_root_path}viewforum.$phpEx"));
 page_footer();
-
 ?>
